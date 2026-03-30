@@ -1,0 +1,24 @@
+services:
+  postgres_db:
+    env_file: .env.stag
+
+  backend:
+    build:
+      context: ./backend
+      target: runner
+    restart: always
+    env_file: .env.stag
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  frontend:
+    build:
+      context: ./frontend
+      target: runner
+    restart: always
+
+  proxy:
+    restart: always

@@ -1,0 +1,22 @@
+services:
+  postgres_db:
+    env_file: .env.prod
+
+  backend:
+    build:
+      target: runner
+    restart: always
+    env_file: .env.prod
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  frontend:
+    build:
+      target: runner
+    restart: always
+
+  proxy:
+    restart: always

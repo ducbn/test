@@ -1,0 +1,25 @@
+services:
+  postgres_db:
+    ports:
+      - "5432:5432"
+    env_file: .env.dev
+  redis_cache:
+    ports:
+      - "6379:6379"
+  backend:
+    build:
+      target: deps
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: npm run start:dev
+    env_file: .env.dev
+  frontend:
+    build:
+      target: deps
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev
+    env_file: .env.dev
+  
